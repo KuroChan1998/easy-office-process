@@ -1,0 +1,46 @@
+package com.jzy.demo.input;
+
+import com.jzy.excel.exception.ExcelColumnNotFoundException;
+import com.jzy.excel.exception.ExcelSheetNameInvalidException;
+import com.jzy.excel.exception.ExcelTooManyRowsException;
+import com.jzy.excel.exception.InvalidFileTypeException;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * @ClassName ReadSuccess1Demo
+ * @Author JinZhiyun
+ * @Description 读取学生信息出错的示例
+ * @Date 2020/4/1 21:48
+ * @Version 1.0
+ **/
+public class ReadError1Demo {
+    public static void main(String[] args) throws IOException, InvalidFileTypeException {
+        //改成你实际的文件路径
+        String filePath = "E:\\Engineering\\java\\idea\\excel-processing\\example\\test1_列名错误.xlsx";
+        //通过文件绝对路径构造excel对象
+        Test1InputExcel excel=new Test1InputExcel(filePath);
+
+        try {
+            //校验并读取数据
+            excel.testAndReadData();
+        } catch (ExcelTooManyRowsException e) {
+            //相应逻辑
+            System.out.println("这个表格太多行了");
+            e.printStackTrace();
+        } catch (ExcelColumnNotFoundException e) {
+            //相应逻辑
+            System.out.println("有列没有找到，检查列名是否符合要求");
+            e.printStackTrace();
+        } catch (ExcelSheetNameInvalidException e) {
+            //相应逻辑
+            System.out.println("有sheet没有找到，检查sheet名是否符合要求");
+            e.printStackTrace();
+        }
+        //获得读取到的数据
+        List<Student> students = excel.getStudents();
+        System.out.println("读取到的学生信息:");
+        students.forEach(System.out::println);
+    }
+}
