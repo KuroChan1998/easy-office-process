@@ -113,13 +113,13 @@ idea中直接导入maven项目即可完成初始构建。
   ```java
   int columnIndex = 0; //第1列
   int startRow = 1; //第2行开始
-  List<String> columnValue = excel.getColumnValue(sheetIndex, startRow, columnIndex);
+  List<String> columnValue = excel.readColumn(sheetIndex, startRow, columnIndex);
   ```
 
 * 获取指定sheet指定行指定列的单元格中的内容。
 
   ```java
-  String cellValue = excel.getValueAt(sheetIndex, rowIndex, columnIndex);
+  String cellValue = excel.read(sheetIndex, rowIndex, columnIndex);
   ```
 
 * 获取指定sheet从指定行开始到指定行结束所有行的内容
