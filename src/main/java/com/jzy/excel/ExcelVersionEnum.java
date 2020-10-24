@@ -1,5 +1,8 @@
 package com.jzy.excel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author JinZhiyun
  * @version 1.0
@@ -16,7 +19,12 @@ public enum ExcelVersionEnum {
     /**
      * Excel 2007 版本
      */
-    VERSION_2007(".xlsx");
+    VERSION_2007(".xlsx"),
+
+    /**
+     * wps et 格式
+     */
+    VERSION_ET(".et");
 
     private String suffix;
 
@@ -26,6 +34,19 @@ public enum ExcelVersionEnum {
 
     public String getSuffix() {
         return suffix;
+    }
+
+    /**
+     * 返回所有合法的文件版本后缀
+     *
+     * @return
+     */
+    public static List<String> listAllVersionSuffix(){
+        List<String> list = new ArrayList<>();
+        for (ExcelVersionEnum versionEnum : ExcelVersionEnum.values()) {
+            list.add(versionEnum.suffix);
+        }
+        return list;
     }
 
     /**
@@ -43,6 +64,10 @@ public enum ExcelVersionEnum {
         }
         if (pathname.endsWith(ExcelVersionEnum.VERSION_2007.getSuffix())) {
             return VERSION_2007;
+        }
+
+        if (pathname.endsWith(ExcelVersionEnum.VERSION_ET.getSuffix())) {
+            return VERSION_ET;
         }
         return null;
     }

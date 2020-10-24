@@ -77,14 +77,18 @@ public abstract class Excel implements Serializable {
      */
     public Excel(File file) throws IOException, InvalidFileTypeException {
         String inputFile = file.getAbsolutePath();
-        if (inputFile.endsWith(ExcelVersionEnum.VERSION_2003.getSuffix())) {
+        ExcelVersionEnum versionEnum = ExcelVersionEnum.getVersion(inputFile);
+        if (ExcelVersionEnum.VERSION_2003.equals(versionEnum)) {
             version = ExcelVersionEnum.VERSION_2003;
             workbook = new HSSFWorkbook(new FileInputStream(file));
-        } else if (inputFile.endsWith(ExcelVersionEnum.VERSION_2007.getSuffix())) {
+        } else if (ExcelVersionEnum.VERSION_2007.equals(versionEnum)) {
             version = ExcelVersionEnum.VERSION_2007;
             workbook = new XSSFWorkbook(new FileInputStream(file));
+        } else if (ExcelVersionEnum.VERSION_ET.equals(versionEnum)) {
+            version = ExcelVersionEnum.VERSION_ET;
+            workbook = new HSSFWorkbook(new FileInputStream(file));
         } else {
-            throw new InvalidFileTypeException("输入文件格式不是.xls或.xlsx");
+            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + ExcelVersionEnum.listAllVersionSuffix());
         }
         this.inputFilePath = inputFile;
     }
@@ -98,14 +102,14 @@ public abstract class Excel implements Serializable {
      * @throws InvalidFileTypeException
      */
     public Excel(InputStream inputStream, ExcelVersionEnum version) throws IOException, InvalidFileTypeException {
-        if (ExcelVersionEnum.VERSION_2003.equals(version)) {
+        if (ExcelVersionEnum.VERSION_2003.equals(version) || ExcelVersionEnum.VERSION_ET.equals(version)) {
             this.version = version;
             workbook = new HSSFWorkbook(inputStream);
         } else if (ExcelVersionEnum.VERSION_2007.equals(version)) {
             this.version = version;
             workbook = new XSSFWorkbook(inputStream);
         } else {
-            throw new InvalidFileTypeException("输入文件格式不是.xls或.xlsx");
+            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + ExcelVersionEnum.listAllVersionSuffix());
         }
     }
 
@@ -125,14 +129,14 @@ public abstract class Excel implements Serializable {
      * @throws InvalidFileTypeException 不合法的入参excel版本枚举异常
      */
     public Excel(ExcelVersionEnum version) throws InvalidFileTypeException {
-        if (ExcelVersionEnum.VERSION_2003.equals(version)) {
+        if (ExcelVersionEnum.VERSION_2003.equals(version) || ExcelVersionEnum.VERSION_ET.equals(version)) {
             this.version = version;
             workbook = new HSSFWorkbook();
         } else if (ExcelVersionEnum.VERSION_2007.equals(version)) {
             this.version = version;
             workbook = new XSSFWorkbook();
         } else {
-            throw new InvalidFileTypeException("不合法的入参excel版本枚举");
+            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + ExcelVersionEnum.listAllVersionSuffix());
         }
     }
 
@@ -146,16 +150,13 @@ public abstract class Excel implements Serializable {
     }
 
     /**
-     * 根据后缀判断是否为 Excel 文件，后缀匹配xls和xlsx
+     * 根据后缀判断是否为 Excel 文件，后缀匹配xls、et和xlsx
      *
      * @param pathname 输入excel路径
      * @return
      */
     public static boolean isExcel(String pathname) {
-        if (pathname == null) {
-            return false;
-        }
-        return pathname.endsWith(ExcelVersionEnum.VERSION_2003.getSuffix()) || pathname.endsWith(ExcelVersionEnum.VERSION_2007.getSuffix());
+        return ExcelVersionEnum.getVersion(pathname) != null;
     }
 
     /**
