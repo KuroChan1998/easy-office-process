@@ -1,6 +1,6 @@
 package com.jzy.excel;
 
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.InvalidFileTypeException;
 import com.jzy.util.MyTimeUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -76,21 +76,8 @@ public abstract class Excel implements Serializable {
      * @throws InvalidFileTypeException
      */
     public Excel(File file) throws IOException, InvalidFileTypeException {
-        String inputFile = file.getAbsolutePath();
-        ExcelVersionEnum versionEnum = ExcelVersionEnum.getVersion(inputFile);
-        if (ExcelVersionEnum.VERSION_2003.equals(versionEnum)) {
-            version = ExcelVersionEnum.VERSION_2003;
-            workbook = new HSSFWorkbook(new FileInputStream(file));
-        } else if (ExcelVersionEnum.VERSION_2007.equals(versionEnum)) {
-            version = ExcelVersionEnum.VERSION_2007;
-            workbook = new XSSFWorkbook(new FileInputStream(file));
-        } else if (ExcelVersionEnum.VERSION_ET.equals(versionEnum)) {
-            version = ExcelVersionEnum.VERSION_ET;
-            workbook = new HSSFWorkbook(new FileInputStream(file));
-        } else {
-            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + ExcelVersionEnum.listAllVersionSuffix());
-        }
-        this.inputFilePath = inputFile;
+        this(new FileInputStream(file), ExcelVersionEnum.getVersion(file.getAbsolutePath()));
+        this.inputFilePath = file.getAbsolutePath();
     }
 
     /**

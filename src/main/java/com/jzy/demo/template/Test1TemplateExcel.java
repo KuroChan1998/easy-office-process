@@ -1,7 +1,7 @@
 package com.jzy.demo.template;
 
 import com.jzy.excel.AbstractTemplateExcel;
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.InvalidFileTypeException;
 import com.jzy.util.MyTimeUtils;
 import lombok.Getter;
 import lombok.Setter;

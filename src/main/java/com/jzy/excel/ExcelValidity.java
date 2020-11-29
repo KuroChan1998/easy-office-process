@@ -1,8 +1,8 @@
 package com.jzy.excel;
 
 
-import com.jzy.excel.exception.ExcelColumnNotFoundException;
-import com.jzy.excel.exception.ExcelTooManyRowsException;
+import com.jzy.exception.ExcelColumnNotFoundException;
+import com.jzy.exception.ExcelTooManyRowsException;
 
 /**
  * @author JinZhiyun

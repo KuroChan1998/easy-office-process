@@ -1,11 +1,119 @@
 package com.jzy.word;
 
+import java.io.*;
 import java.util.*;
 import java.util.regex.*;
+
+import com.jzy.word.WordVersionEnum;
+import com.jzy.exception.InvalidFileTypeException;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.*;
 
-public class Word
-{
+/**
+ * Word 包装类，对poi的二次封装
+ *
+ * @author JinZhiyun
+ * @version 1.0 2020/11/28
+ */
+public abstract class Word implements Serializable {
+    private static final long serialVersionUID = -1L;
+
+    /**
+     * 文档对象
+     */
+    @Getter
+    @Setter
+    protected XWPFDocument document;
+
+    /**
+     * word版本枚举对象
+     */
+    @Getter
+    protected WordVersionEnum version;
+
+    /**
+     * 输入文件路径
+     */
+    @Getter
+    private String inputFilePath;
+
+    /**
+     * 输出流
+     */
+    private OutputStream os;
+
+    /**
+     * 由输入文件路径构造word对象
+     *
+     * @param inputFile 输入文件路径
+     * @throws IOException
+     * @throws InvalidFileTypeException
+     */
+    public Word(String inputFile) throws IOException, InvalidFileTypeException {
+        this(new File(inputFile));
+    }
+
+    /**
+     * 由一个File构造word对象
+     *
+     * @param file 输入文件对象
+     * @throws IOException
+     * @throws InvalidFileTypeException
+     */
+    public Word(File file) throws IOException, InvalidFileTypeException {
+        this(new FileInputStream(file), WordVersionEnum.getVersion(file.getAbsolutePath()));
+        this.inputFilePath = file.getAbsolutePath();
+    }
+
+    /**
+     * 由一个输入流和版本枚举对象构造word对象
+     *
+     * @param inputStream 输入流对象
+     * @param version     word版本的枚举对象
+     * @throws IOException
+     * @throws InvalidFileTypeException
+     */
+    public Word(InputStream inputStream, WordVersionEnum version) throws IOException, InvalidFileTypeException {
+        if (WordVersionEnum.VERSION_2003.equals(version) 
+                || WordVersionEnum.VERSION_2007.equals(version)
+                || WordVersionEnum.VERSION_WPS.equals(version)) {
+            this.version = version;
+            document = new XWPFDocument(inputStream);
+        } else {
+            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + WordVersionEnum.listAllVersionSuffix());
+        }
+    }
+
+    /**
+     * 由一个文档构造word对象
+     *
+     * @param document 文档对象
+     */
+    public Word(XWPFDocument document) {
+        this.document = document;
+    }
+
+    /**
+     * 构建指定word版本的新表格
+     *
+     * @param version word版本的枚举对象
+     * @throws InvalidFileTypeException 不合法的入参word版本枚举异常
+     */
+    public Word(WordVersionEnum version) throws InvalidFileTypeException {
+        if (WordVersionEnum.VERSION_2003.equals(version)
+                || WordVersionEnum.VERSION_2007.equals(version)
+                || WordVersionEnum.VERSION_WPS.equals(version)) {
+            this.version = version;
+            document = new XWPFDocument();
+        } else {
+            throw new InvalidFileTypeException("错误的文件类型！文件类型仅支持：" + WordVersionEnum.listAllVersionSuffix());
+        }
+    }
+
     //■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     /**
      替换Word中指定的字符串“${标签1}”，在Word中需要替换的地方写入这样的字符串，用下面代码实现标签替换（<a style='color:red;'>注：Word中的标签可以重复，都会被替换</a>）<br/>

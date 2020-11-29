@@ -1,4 +1,4 @@
-package com.jzy.excel.exception;
+package com.jzy.exception;
 
 import lombok.Getter;
 

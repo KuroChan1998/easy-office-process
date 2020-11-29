@@ -2,7 +2,7 @@ package com.jzy.demo;
 
 import com.jzy.excel.DefaultExcel;
 import com.jzy.excel.ExcelVersionEnum;
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.InvalidFileTypeException;
 
 /**
  * @ClassName Test

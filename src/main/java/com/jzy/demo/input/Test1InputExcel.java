@@ -1,8 +1,8 @@
 package com.jzy.demo.input;
 
 import com.jzy.excel.AbstractInputExcel;
-import com.jzy.excel.exception.ExcelColumnNotFoundException;
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.ExcelColumnNotFoundException;
+import com.jzy.exception.InvalidFileTypeException;
 import lombok.Getter;
 
 import java.io.IOException;

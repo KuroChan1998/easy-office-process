@@ -1,7 +1,7 @@
 package com.jzy.demo;
 
 import com.jzy.excel.DefaultExcel;
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.InvalidFileTypeException;
 
 import java.io.IOException;
 import java.util.Arrays;

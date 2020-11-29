@@ -1,7 +1,7 @@
 package com.jzy.excel;
 
 
-import com.jzy.excel.exception.InvalidFileTypeException;
+import com.jzy.exception.InvalidFileTypeException;
 import lombok.ToString;
 import org.apache.poi.ss.usermodel.Workbook;
 
