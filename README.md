@@ -562,7 +562,7 @@ word对象的构建方法与excel异曲同工。
 
 ### DefaultWord2007——默认的word 2007文档处理类
 
-![Snipaste_2021-01-24_20-02-21](D:\CDesktop\Engineering\java\idea\easy-office-process\git_screenshot\Snipaste_2021-01-24_20-02-21.png)
+![Snipaste_2021-01-24_20-02-21](git_screenshot/Snipaste_2021-01-24_20-02-21.png)
 
 `DefaultWord2007`与`DefaultWord2003`完全类似，是处理word 2007文档默认类，支持解析.docx文件。下面仅展示部分区别如下，其余使用类比参考2003：
 
