@@ -232,7 +232,8 @@ public class MyTimeUtils {
      * 获取本周的开始时间
      *
      * @return 本周的开始时间
-     */    public static Date getBeginDayOfCurrentWeek() {
+     */
+    public static Date getBeginDayOfCurrentWeek() {
         return getBeginDayOfWeek(new Date());
     }
 
@@ -416,7 +417,7 @@ public class MyTimeUtils {
     /**
      * 获取date的secondsInterval秒后的时间
      *
-     * @param date         指定date
+     * @param date            指定date
      * @param secondsInterval 多少秒后
      * @return secondsInterval秒后的时间
      */
@@ -443,12 +444,12 @@ public class MyTimeUtils {
     /**
      * 获取date的secondsInterval秒前的时间
      *
-     * @param date         指定date
+     * @param date            指定date
      * @param secondsInterval 多少秒前
      * @return secondsInterval秒前的时间
      */
     public static Date getSecondsBefore(Date date, int secondsInterval) {
-        return getSecondsAfter(date, 0-secondsInterval);
+        return getSecondsAfter(date, 0 - secondsInterval);
     }
 
     /**
@@ -456,8 +457,7 @@ public class MyTimeUtils {
      *
      * @return
      */
-    public static Date getServerStartDate()
-    {
+    public static Date getServerStartDate() {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         return new Date(time);
     }
@@ -469,8 +469,7 @@ public class MyTimeUtils {
      * @param nowDate 起始时间
      * @return 字符串描述的时间差
      */
-    public static String getDatePoor(Date endDate, Date nowDate)
-    {
+    public static String getDatePoor(Date endDate, Date nowDate) {
         long nd = 1000 * 24 * 60 * 60;
         long nh = 1000 * 60 * 60;
         long nm = 1000 * 60;
@@ -489,6 +488,6 @@ public class MyTimeUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(dateToStringYMDHMS(getPastDay(new Date(),7)));
+        System.out.println(dateToStringYMDHMS(getPastDay(new Date(), 7)));
     }
 }

@@ -699,7 +699,7 @@ public class MyStringUtils {
     }
 
     public static void main(String[] args) {
-        String s="Qaaa211";
+        String s = "Qaaa211";
         s.toLowerCase();
         System.out.println(s);
     }
