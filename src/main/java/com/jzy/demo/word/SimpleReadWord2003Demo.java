@@ -16,7 +16,7 @@ import java.util.List;
 public class SimpleReadWord2003Demo {
     public static void main(String[] args) throws IOException, InvalidFileTypeException {
         //改成你实际的文件路径
-        String filePath = "D:\\CDesktop\\Engineering\\java\\idea\\easy-office-process\\example\\1.doc";
+        String filePath = "E:\\Engineering\\java\\idea\\easy-office-process\\example\\1.doc";
 
         //构造word 2003对象
         DefaultWord2003 word2003 = new DefaultWord2003(filePath);
