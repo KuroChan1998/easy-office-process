@@ -20,7 +20,7 @@
         <project.build.commons.io.version>2.4</project.build.commons.io.version>
         <project.build.commons.lang3.version>3.3.2</project.build.commons.lang3.version>
         <!--poi-->
-        <project.build.org.apache.poi.version>3.17</project.build.org.apache.poi.version>
+        <project.build.org.apache.poi.version>5.2.1</project.build.org.apache.poi.version>
         <!--lombok-->
         <project.build.lombok.version>1.18.8</project.build.lombok.version>
     </properties>
